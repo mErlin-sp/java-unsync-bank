@@ -4,6 +4,7 @@ class Bank {
     public static final int NTEST = 10000;
     private final int[] accounts;
     private long ntransacts = 0;
+    private final Object lock = new Object();
 
     public Bank(int n, int initialBalance) {
         accounts = new int[n];
@@ -13,11 +14,13 @@ class Bank {
 
     public void transfer(int from, int to, int amount)
             throws InterruptedException {
-        accounts[from] -= amount;
-        accounts[to] += amount;
-        ntransacts++;
-        if (ntransacts % NTEST == 0)
-            test();
+        synchronized (lock) {
+            accounts[from] -= amount;
+            accounts[to] += amount;
+            ntransacts++;
+            if (ntransacts % NTEST == 0)
+                test();
+        }
     }
 
     public void test() {
