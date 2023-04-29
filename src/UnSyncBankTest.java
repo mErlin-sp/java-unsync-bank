@@ -1,7 +1,7 @@
 /**
  * author Cay Horstmann
  */
-public class UnsynchBankTest {
+public class UnSyncBankTest {
     public static final int NACCOUNTS = 10;
     public static final int INITIAL_BALANCE = 10000;
 
