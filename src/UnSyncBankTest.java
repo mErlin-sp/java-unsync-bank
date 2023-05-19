@@ -10,9 +10,9 @@ import java.util.concurrent.Future;
  */
 
 public class UnSyncBankTest {
-    public static final int N_ACCOUNTS = 10;
+    public static final int N_ACCOUNTS = 30;
     public static final int INITIAL_BALANCE = 10000;
-    public static final int REPS_FOR_ACCOUNT = 10000000;
+    public static final int REPS_FOR_ACCOUNT = 1000000;
 
     public static void main(String[] args) {
         System.out.println("UnSync Bank Test with ForkJoinFramework");
@@ -20,7 +20,7 @@ public class UnSyncBankTest {
 
         long timer = System.currentTimeMillis();
 
-        try (ForkJoinPool commonPool = ForkJoinPool.commonPool()) {
+        try (ForkJoinPool commonPool = new ForkJoinPool(4)) {
 
             List<Future<Long>> futures = new ArrayList<>();
             for (int i = 0; i < N_ACCOUNTS; i++) {

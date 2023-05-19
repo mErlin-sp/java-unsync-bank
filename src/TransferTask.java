@@ -5,7 +5,7 @@ import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
 
 public class TransferTask extends RecursiveTask<Long> {
-    private static final int THRESHOLD = 20;
+    private static final int THRESHOLD = 10000;
     private final Bank bank;
     private final int fromAccount;
     private final int maxAmount;
@@ -39,7 +39,7 @@ public class TransferTask extends RecursiveTask<Long> {
         for (int i = 0; i < reps; i++) {
             try {
                 int toAccount = (int) (bank.size() * Math.random());
-                int amount = (int) (maxAmount * Math.random() / reps);
+                int amount = (int) (maxAmount * Math.random());
                 bank.transfer(fromAccount, toAccount, amount);
                 sum += amount;
             } catch (InterruptedException e) {
